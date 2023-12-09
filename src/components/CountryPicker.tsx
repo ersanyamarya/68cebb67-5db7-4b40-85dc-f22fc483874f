@@ -1,5 +1,6 @@
 'use client'
 import { IRegion } from '@/apis/fetchCountries'
+import { useCountryStore } from '@/store/country'
 import Image from 'next/image'
 import { useState } from 'react'
 interface CountryPickerProps {
@@ -9,6 +10,7 @@ interface CountryPickerProps {
 export default function CountryPicker({ regionCountries }: CountryPickerProps) {
   const [currentRegion, setCurrentRegion] = useState('Asia')
   const [showPicker, setShowPicker] = useState(false)
+  const { setSelectedCountry } = useCountryStore(state => state)
   const handleButtonClick = () => {
     setShowPicker(!showPicker)
   }
@@ -25,26 +27,38 @@ export default function CountryPicker({ regionCountries }: CountryPickerProps) {
       >
         <div className={` bg-white border border-gray-300 rounded-lg shadow-lg w-3/4`}>
           <div className="flex flex-row items-center justify-between border-b-2 border-slate-200 ">
-            {Object.keys(regionCountries).map(region => (
-              <button
-                key={region}
-                className={`${
-                  currentRegion === region ? 'border-b-2 border-black' : 'border-b-2 border-transparent'
-                } px-4 py-2 m-0 transition duration-200 ease-in-out hover:bg-gray-300 font-medium text-base`}
-                onClick={() => setCurrentRegion(region)}
-              >
-                {region === '' ? 'Others' : region}
-              </button>
-            ))}
+            {Object.keys(regionCountries)
+              .sort()
+              .map(region => (
+                <button
+                  key={region}
+                  className={`${
+                    currentRegion === region ? 'border-b-2 border-black' : 'border-b-2 border-transparent'
+                  } px-6 py-2 m-0 transition duration-200 ease-in-out hover:bg-gray-300 font-medium text-base`}
+                  onClick={() => setCurrentRegion(region)}
+                >
+                  {region === '' ? 'Others' : region}
+                </button>
+              ))}
           </div>
 
           <div className="grid grid-cols-4  auto-rows-max overflow-x-hidden  overflow-y-auto h-64 ">
             {regionCountries[currentRegion].map(country => (
               <button
                 key={country.name}
-                className="flex flex-row items-center justify-start px-4 py-2 m-0 transition duration-200 ease-in-out hover:bg-gray-300 h-12"
+                className="flex flex-row items-center justify-start px-4 py-2 m-0 transition duration-200 ease-in-out hover:bg-gray-300"
+                onClick={() => {
+                  setSelectedCountry(country)
+                  setShowPicker(false)
+                }}
               >
-                <Image src={`/flags/${country.alpha2}.svg`} width={24} height={24} alt={country.name} />
+                <Image
+                  src={`/flags/${country.alpha2}.svg`}
+                  width={32}
+                  height={32}
+                  alt={country.name}
+                  className="mr-2 border border-gray-900"
+                />
                 <h1 className="px-2 truncate">{country.name}</h1>
               </button>
             ))}

@@ -26,27 +26,16 @@ export interface IRegion {
 export async function fetchCountries(): Promise<IRegion> {
   const response = await fetch('https://retoolapi.dev/TkEl3I/countriesdata')
   const data = (await response.json()) as ICountryApiResponse[]
-  return sortJsonByKeys(
-    data.reduce((acc, country) => {
-      const region = country.region
-      if (!acc[region]) {
-        acc[region] = []
-      }
-      acc[region].push({
-        name: country.name,
-        region: country.region,
-        alpha2: country['alpha-2'],
-      })
-      return acc
-    }, {} as IRegion)
-  )
-}
-
-function sortJsonByKeys(obj: any) {
-  return Object.keys(obj)
-    .sort()
-    .reduce((acc, key) => {
-      acc[key] = obj[key]
-      return acc
-    }, {} as any)
+  return data.reduce((acc, country) => {
+    const region = country.region
+    if (!acc[region]) {
+      acc[region] = []
+    }
+    acc[region].push({
+      name: country.name,
+      region: country.region,
+      alpha2: country['alpha-2'],
+    })
+    return acc
+  }, {} as IRegion)
 }
