@@ -1,16 +1,10 @@
-import { fetchCountries } from '@/apis/fetchCountries'
-import CountryPicker from '@/components/CountryPicker'
 import SelectedCountry from '@/components/SelectedCountry'
 
 export default async function Home() {
-  const regionCountries = await fetchCountries()
-
   return (
-    <main className="flex  flex-col items-center justify-between">
-      <h1>Sanyam Arya</h1>
-      <br />
-      <CountryPicker regionCountries={regionCountries} />
-      <br />
+    <main className="flex  flex-col items-center justify-between gap-4">
+      <h1 className="text-4xl font-bold text-center">Welcome to Sanyam's Next.js App</h1>
+      <p className="text-xl text-center">Select a country from the dropdown to get started</p>
       <SelectedCountry />
     </main>
   )
