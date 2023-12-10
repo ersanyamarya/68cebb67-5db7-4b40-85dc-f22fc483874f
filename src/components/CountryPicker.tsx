@@ -47,7 +47,7 @@ export default function CountryPicker({ regionCountries }: CountryPickerProps) {
                   } md:px-12 px-6 py-2 m-0 transition duration-200 ease-in-out hover:bg-gray-300 font-medium text-base`}
                   onClick={() => setCurrentRegion(region)}
                 >
-                  {region === '' ? 'Others' : region}
+                  {region === '' ? 'Global' : region}
                 </button>
               ))}
           </div>
