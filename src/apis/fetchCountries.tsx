@@ -23,9 +23,16 @@ export interface IRegion {
   [key: string]: ICountry[]
 }
 
+/**
+ * The function fetches country data from an API and organizes it by region.
+ * @returns The function `fetchCountries` returns a Promise that resolves to an object of type
+ * `IRegion`.
+ */
 export async function fetchCountries(): Promise<IRegion> {
   const response = await fetch('https://retoolapi.dev/TkEl3I/countriesdata')
   const data = (await response.json()) as ICountryApiResponse[]
+  /* Using the `reduce` method on the `data` array to organize the
+ country data by region. */
   return data.reduce((acc, country) => {
     const region = country.region
     if (!acc[region]) {
