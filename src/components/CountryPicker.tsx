@@ -18,9 +18,9 @@ export default function CountryPicker({ regionCountries }: CountryPickerProps) {
     <>
       <div className={` bg-transparent h-full relative`}>
         <button
-          className="font-bold py-2 pl-2 pr-4 rounded flex flex-row items-center justify-start gap-4 w-max bg-white truncate
-          hover:transform hover:scale-105 transition duration-200 ease-in-out
-          "
+          className="flex flex-row items-center justify-start gap-4 py-2 pl-2 pr-4 rounded w-max truncate
+          bg-emerald-50 text-emerald-900 font-bold
+          hover:transform hover:scale-105 transition duration-200 ease-in-out"
           onClick={handleButtonClick}
         >
           <Image

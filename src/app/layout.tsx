@@ -13,17 +13,14 @@ export const metadata: Metadata = {
 
 export default async function RootLayout({ children }: { children: React.ReactNode }) {
   const regionCountries = await fetchCountries()
-
   return (
     <html lang="en">
       <body className={inter.className}>
-        <nav className="flex items-center justify-between flex-row bg-teal-500 p-6 ">
-          <span className="font-semibold text-xl tracking-tight  text-white">Sanyam</span>
+        <nav className="flex items-center justify-between flex-row bg-emerald-500 p-5">
+          <span className="font-semibold text-xl tracking-tight text-emerald-50">Sanyam</span>
           <span className="flex-1" />
-
           <CountryPicker regionCountries={regionCountries} />
         </nav>
-
         {children}
       </body>
     </html>
